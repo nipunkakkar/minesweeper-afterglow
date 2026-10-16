@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en" data-theme="daylight">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#faf8f2">
+  <meta name="description" content="The Minesweeper you remember, with a little sixth sense. Classic boards, a retro skin, and a surprising sonar pulse. Free, offline, no account needed.">
+  <title>Minesweeper: Afterglow · Nipun’s games</title>
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg">
+  <link rel="stylesheet" href="./styles.css">
+  <script type="module" src="./app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#board">Skip to the board</a>
+  <div class="page-shell">
+    <header class="site-header">
+      <a class="brand" href="https://nipunkakkar.github.io/"><span class="brand-mark">n.</span><span>Nipun’s games</span></a>
+      <div class="header-actions">
+        <button id="sound" class="icon-button" type="button" aria-pressed="false" aria-label="Turn sound on" title="Toggle sound"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5Z"/><path class="sound-wave" d="M15 8a6 6 0 0 1 0 8m3-11a10 10 0 0 1 0 14"/><path class="sound-mute" d="m16 9 5 6m0-6-5 6"/></svg></button>
+        <button id="help" class="quiet-button" type="button"><span class="help-icon">?</span> How to play</button>
+      </div>
+    </header>
+
+    <main>
+      <section class="intro">
+        <div><p class="eyebrow">A CLASSIC, WITH A LITTLE TWIST</p><h1>Minesweeper<span class="title-dot">.</span></h1><p class="intro-copy">A little logic. A little luck. One more square.</p></div>
+      </section>
+
+      <div class="play-layout">
+        <section class="game-section" aria-label="Minesweeper game">
+          <div class="game-toolbar">
+            <div class="difficulty" role="group" aria-label="Difficulty"><button type="button" data-level="beginner" aria-pressed="true">Beginner <span>9 × 9</span></button><button type="button" data-level="intermediate" aria-pressed="false">Intermediate <span>16 × 16</span></button><button type="button" data-level="expert" aria-pressed="false">Expert <span>30 × 16</span></button></div>
+            <div class="toolbar-actions"><button id="skin-classic" class="retro-button" type="button" aria-pressed="false">▦ Retro</button><button id="pause" class="pause-button" type="button" aria-label="Pause game" disabled>Ⅱ</button></div>
+          </div>
+
+          <div class="game-window" id="game-window">
+            <div class="window-bar"><span><svg class="tiny-mine" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="5"/><path d="M12 2v5m0 10v5M2 12h5m10 0h5M5 5l4 4m6 6 4 4M5 19l4-4m6-6 4-4"/></svg> minesweeper.exe</span><span class="window-caption">good old days, new little tricks</span></div>
+            <div class="instrument-panel">
+              <div class="instrument"><span class="instrument-label">MINES LEFT</span><output id="mines-left" class="digital">010</output></div>
+              <button id="new-game" class="face-button" type="button" title="New game" aria-label="Start a new game"><svg id="face" viewBox="0 0 40 40" aria-hidden="true"><circle class="face-disc" cx="20" cy="20" r="16"/><g class="face-features"><path d="M14 15v2m12-2v2"/><path id="face-mouth" d="M13 24q7 8 14 0"/></g></svg></button>
+              <div class="instrument instrument-right"><span class="instrument-label">TIME</span><output id="timer" class="digital">000</output></div>
+            </div>
+
+            <div class="board-viewport" id="board-viewport">
+              <div class="board-wrap" id="board-wrap"><div id="board" class="board" role="grid" aria-label="Minesweeper. Arrow keys move, Enter uncovers, F flags." aria-rowcount="9" aria-colcount="9"></div><div class="sonar-wave" id="sonar-wave" aria-hidden="true"></div></div>
+              <div class="pause-overlay" id="pause-overlay" hidden><span class="pause-symbol">Ⅱ</span><h2>A little breather.</h2><p>Your minefield can wait.</p><button class="primary-button" id="resume" type="button">Keep playing <span>→</span></button></div>
+              <div id="petals" class="petals" aria-hidden="true"></div>
+              <div id="explosion" class="explosion" aria-hidden="true"></div>
+            </div>
+
+            <div class="window-status"><span id="status-dot" class="live-dot"></span><p id="status" role="status" aria-live="polite">Your first click is always a safe place to start.</p><span id="progress" class="progress-label">0 / 71</span></div>
+          </div>
+
+          <div class="board-controls"><div class="input-mode" role="group" aria-label="Tap action"><button id="reveal-mode" type="button" aria-pressed="true"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m5 2 11 9-6 1-3 6Z"/></svg> Uncover</button><button id="flag-mode" type="button" aria-pressed="false"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 18V3l11 4-11 5M2 18h9"/></svg> Flag</button></div><span class="desktop-hint">Right-click to flag <span>·</span> Click a number to clear around it</span><span class="touch-hint">Or hold a square to flag it</span></div>
+          <div class="result-strip" id="result-strip" hidden><div><p class="eyebrow" id="result-eyebrow">FIELD COMPLETE</p><h2 id="result-title">A beautiful clean sweep.</h2><p id="result-copy"></p></div><button id="play-again" class="primary-button" type="button">One more game <span>↗</span></button></div>
+        </section>
+
+        <aside class="sidebar">
+          <section class="sonar-card" aria-label="Sonar surprise">
+            <div class="sonar-summary"><div class="radar" id="radar" aria-hidden="true"><div class="radar-ring ring-one"></div><div class="radar-ring ring-two"></div><div class="radar-sweep"></div><span class="radar-center">✧</span></div><div><h2>A little sixth sense.</h2><p>Scan a 3 × 3 area. Find out how many mines are hiding.</p></div><button id="sonar" class="primary-button sonar-button" type="button" aria-pressed="false" disabled><span id="sonar-label">Use sonar</span><span class="keycap">S</span></button></div>
+            <div class="sonar-meta"><div class="charge-pips" id="charge-pips" aria-label="3 sonar charges left"><i></i><i></i><i></i></div><span id="charges-label">3 pulses left · +10s each</span><p class="scan-message" id="scan-message" role="status" aria-live="polite">Uncover a square to begin.</p></div>
+          </section>
+          <section class="best-card"><p class="eyebrow" id="best-label">YOUR BEST · UNASSISTED</p><p class="best-time" id="best-time">— <span>set your first time</span></p></section>
+        </aside>
+      </div>
+
+    </main>
+    <footer><span>Made for a little break.</span><a href="https://nipunkakkar.github.io/">More games <span>↗</span></a></footer>
+  </div>
+
+  <dialog id="help-dialog" aria-labelledby="help-title"><div class="dialog-top"><p class="eyebrow">A QUICK REFRESHER</p><button id="close-help" class="icon-button" type="button" aria-label="Close instructions">×</button></div><h2 id="help-title">One square at a time.</h2><p>Uncover every safe square without hitting a mine. The numbers tell you how many of the eight surrounding squares contain mines.</p><ul><li><b>Uncover:</b> click or tap. Your first opening and its neighbors are always safe.</li><li><b>Flag:</b> right-click, hold for half a second, or choose Flag mode. Tap again to remove a flag.</li><li><b>Clear around a number:</b> click an open number after placing the right number of flags around it. Incorrect flags can trigger a mine!</li><li><b>Sonar:</b> activate it, then pick any square. The outlined area contains the reported number of mines, including any you have flagged. Edges have smaller scan areas. Each pulse adds 10 seconds.</li><li><b>Keyboard:</b> arrows move; Enter uncovers; F or Space flags; S readies sonar; Escape cancels sonar. P pauses.</li></ul><p class="dialog-note">The clock pauses when you switch tabs or open these instructions. Best times stay in this browser, with separate sonar and unassisted records. Retro changes the look; the sonar surprise stays.</p><button id="got-it" class="primary-button" type="button">Let’s play <span>→</span></button></dialog>
+</body>
+</html>

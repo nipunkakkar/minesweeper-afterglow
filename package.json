@@ -1,0 +1,12 @@
+{
+  "name": "minesweeper-afterglow",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "The Minesweeper you remember, with a little sixth sense.",
+  "scripts": {
+    "dev": "node scripts/serve.js",
+    "test": "node --test tests/*.test.js",
+    "check": "node --check app.js && node --check game.js && node --check scripts/serve.js"
+  }
+}
